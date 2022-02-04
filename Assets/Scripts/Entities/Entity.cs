@@ -19,7 +19,10 @@ public class Entity : MonoBehaviour {
   private AStarPathfinder pathfinder; // an instance of the pathfinder
   private Player targetPlayer;        // player that the entity is currently targeting
   private List<Vector2Int> waypoints; // the waypoints found by the pathfinder
-  private float circleCastRadius;     // the minimum width of an opening for the entity to be able to pass through
+
+  // used for circlecasts so the entity will discard paths too narrow for it
+  // also used to stop the entity from pushing on the player too much and causing lag from a lot of physics collisions
+  private float hitboxRadius;
 
 
 
@@ -31,7 +34,7 @@ public class Entity : MonoBehaviour {
     if(enablePathfinding) {
       pathfinder = gameObject.AddComponent<AStarPathfinder>();
       targetPlayer = GameManager.Instance.player;
-      circleCastRadius = boxCollider.size.x / 2;
+      hitboxRadius = boxCollider.size.x / 2;
       waypoints = new List<Vector2Int>();
     }
   }
@@ -48,7 +51,7 @@ public class Entity : MonoBehaviour {
       Vector2 vecBetween = targetPlayer.transform.position - transform.position;
       RaycastHit2D hit = Physics2D.CircleCast(
         origin:    transform.position,
-        radius:    circleCastRadius,
+        radius:    hitboxRadius,
         direction: vecBetween.normalized,
         distance:  maxRaycastDistance,
         layerMask: lineOfSightMask);
@@ -73,7 +76,7 @@ public class Entity : MonoBehaviour {
             vecBetween = waypoint - (Vector2) transform.position;
             hit = Physics2D.CircleCast(
               origin:    transform.position,
-              radius:    circleCastRadius,
+              radius:    hitboxRadius,
               direction: vecBetween.normalized,
               distance:  Math.Min(maxRaycastDistance, vecBetween.magnitude),
               layerMask: obstacleMask);
@@ -81,7 +84,9 @@ public class Entity : MonoBehaviour {
             if(hit.collider != null)
               continue;
             
-            SetMovement(vecBetween);
+            // don't move if already touching the player, as that will create rapid unnecessary physics calculations
+            if(Vector2.Distance(transform.position, targetPlayer.transform.position) > hitboxRadius)
+              SetMovement(vecBetween);
 
 
             waypointFound = true;
