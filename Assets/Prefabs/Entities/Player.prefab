@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2294131165946912275, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: enablePathfinding
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3002907803424507955, guid: d7363ad358acede4db582da9ac162487, type: 3}
       propertyPath: m_Name
       value: Player
@@ -82,5 +86,3 @@ MonoBehaviour:
   entity: {fileID: 0}
   cam: {fileID: 0}
   hudHealthBar: {fileID: 0}
-  movement: {x: 0, y: 0}
-  scentMarkerPrefab: {fileID: 0}

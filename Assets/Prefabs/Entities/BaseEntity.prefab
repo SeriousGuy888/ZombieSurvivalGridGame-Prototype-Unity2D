@@ -265,10 +265,18 @@ MonoBehaviour:
   rb: {fileID: 3002907803424507967}
   boxCollider: {fileID: 3002907803424507960}
   healthBar: {fileID: 761082320768628803}
+  movement: {x: 0, y: 0}
   moveSpeed: 5
   maxHealth: 100
-  movement: {x: 0, y: 0}
   health: 0
+  enablePathfinding: 1
+  maxRaycastDistance: 32
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 128
+  lineOfSightMask:
+    serializedVersion: 2
+    m_Bits: 384
 --- !u!1001 &8513270675419954183
 PrefabInstance:
   m_ObjectHideFlags: 0

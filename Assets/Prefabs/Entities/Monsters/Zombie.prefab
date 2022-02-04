@@ -95,4 +95,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 1183517328447327395}
-  raycastDistance: 32
