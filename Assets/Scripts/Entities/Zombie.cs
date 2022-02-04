@@ -1,80 +1,104 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Mathematics;
 
 public class Zombie : BaseEntity {
+  [SerializeField] private int raycastDistance = 32;
+
   AStarPathfinder pathfinder;
-  
-  List<Vector2Int> waypoints;
-  private int waypointIndex;
-  private float lastPathfindSeconds;
+  private Player targetPlayer;
+
+  private List<Vector2Int> waypoints;
+
+  private float circleCastRadius;
+
 
   private void Start() {
     pathfinder = gameObject.AddComponent<AStarPathfinder>();
-    PathfindToPlayer();
+    targetPlayer = GameManager.Instance.player;
+    ResetWaypoints();
+
+    circleCastRadius = entity.boxCollider.size.x / 2;
   }
 
   private void FixedUpdate() {
-    MoveTowardsWaypoint();
-  }
 
-  private void OnMouseUp() {
-    ApplyDamage(25);
-    Debug.Log("waypoints " + waypoints.Count);
-    Debug.Log("index " + waypointIndex);
-  }
+    Vector2 vecBetween = targetPlayer.transform.position - transform.position;
+    RaycastHit2D hit = Physics2D.CircleCast(
+      origin:    transform.position,
+      radius:    circleCastRadius,
+      direction: vecBetween.normalized,
+      distance:  raycastDistance,
+      layerMask: LayerMask.GetMask(new string[] { "Obstacle", "Entity" }));
+    
 
-  private void OnCollisionEnter2D(Collision2D collision) {
-    if(collision.gameObject.layer.Equals(LayerMask.NameToLayer("Entity")) && Time.time - lastPathfindSeconds > 3)
-      PathfindToPlayer();
-  }
+    if(hit.collider != null && hit.collider.gameObject.Equals(targetPlayer.gameObject)) {
+      entity.SetMovement(vecBetween);
+      ResetWaypoints();
+    } else {
+      if(waypoints == null || waypoints.Count == 0) {
+        FindNewPath(null);
+      } else {
+        for(int i = 0; i < waypoints.Count; i++) {
+          if(Vector2.Distance(transform.position, waypoints[i]) < 0.1) {
+            waypoints.Remove(waypoints[i]);
+            break;
+          }
+        }
 
-  private void MoveTowardsWaypoint() {
-    if(Time.time - lastPathfindSeconds > 15
-        // || Vector2.SqrMagnitude(entity.rb.velocity) < 1
-        || waypoints == null
-        || waypoints.Count == 0
-        || waypointIndex >= waypoints.Count - 1) {
-      PathfindToPlayer();
-      return;
+        bool waypointFound = false;
+        foreach(var waypoint in waypoints) {
+          vecBetween = waypoint - (Vector2) transform.position;
+          hit = Physics2D.CircleCast(
+            origin:    transform.position,
+            radius:    circleCastRadius,
+            direction: vecBetween.normalized,
+            distance:  Math.Min(raycastDistance, vecBetween.magnitude),
+            layerMask: LayerMask.GetMask(new string[] { "Obstacle" }));
+          
+          if(hit.collider != null)
+            continue;
+          
+          entity.SetMovement(vecBetween);
+          waypointFound = true;
+          break;
+        }
+
+        if(!waypointFound) {
+          if(waypoints.Count > 0)
+            FindNewPath(waypoints[0]);
+          else
+            FindNewPath(null);
+        }
+      }
     }
-
-    // entity.rb.velocity = Vector2.zero;
-    // transform.position = Vector2.MoveTowards(transform.position, waypoints[waypointIndex], entity.moveSpeed * Time.fixedDeltaTime);
-    entity.rb.MovePosition(Vector2.MoveTowards(transform.position, waypoints[waypointIndex], entity.moveSpeed * Time.fixedDeltaTime));
-
-    // if(Vector2.Distance((Vector2) transform.position, waypoints[waypointIndex]) <= 0.25)
-    if((Vector2) transform.position == waypoints[waypointIndex])
-      waypointIndex++;
   }
 
-  public void PathfindToPlayer() {
-    Player player = GameManager.Instance.player;
+  private void FindNewPath(Vector2? obstructedWaypoint) {
+    var obstructedCoords = new List<Vector2>();
 
-    if(Vector2.Distance(transform.position, player.transform.position) <= 1)
-      return;
+    if(obstructedWaypoint.HasValue)
+      obstructedCoords.Add(obstructedWaypoint.Value);
+    
 
-    Collider2D[] nearbyColliders = Physics2D.OverlapCircleAll(transform.position, 5, LayerMask.NameToLayer("Entities"));
+    Collider2D[] nearbyColliders = Physics2D
+      .OverlapCircleAll(transform.position, 5, LayerMask.GetMask(new string[] { "Obstacle" }));
 
-    var obstructedCoords = new List<int2>();
     foreach(var collider in nearbyColliders) {
-      if(collider.gameObject.Equals(player.gameObject) || collider.gameObject.Equals(gameObject))
-        continue;
-
-      int2 coords = Vector2ToInt2(collider.transform.position);
-      if(coords.Equals(Vector2ToInt2(transform.position)))
-        continue;
-
+      Vector2 coords = collider.transform.position;
       if(!obstructedCoords.Contains(coords))
         obstructedCoords.Add(coords);
     }
-
-    // waypoints = pathfinder.FindPath(transform.position, player.transform.position, obstructedCoords);
-    waypointIndex = 0;
-    lastPathfindSeconds = Time.time;
+    
+    waypoints = pathfinder.FindPath(transform.position, targetPlayer.transform.position, obstructedCoords);
   }
 
-  private int2 Vector2ToInt2(Vector2 vec) {
-    return new int2((int) vec.x, (int) vec.y);
+  private void ResetWaypoints() {
+    waypoints = new List<Vector2Int>();
+  }
+
+  
+  private void OnMouseUp() {
+    ApplyDamage(10);
   }
 }
