@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c89d2e684e39d2946895cea870b9d273
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - cam: {instanceID: 0}
+  - grassTile: {instanceID: 0}
+  - waterTile: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

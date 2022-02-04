@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1133454233114530480
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2294131165946912275, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: moveSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002907803424507955, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_Name
+      value: Zombie
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002907803424507964, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 246d53ced7418314da258acb160052b6, type: 3}
+    - target: {fileID: 3002907803424507965, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002907803424507965, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002907803424507965, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002907803424507965, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002907803424507965, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002907803424507965, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002907803424507965, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002907803424507965, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002907803424507965, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002907803424507965, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002907803424507965, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 938675372919212893, guid: d7363ad358acede4db582da9ac162487, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: d7363ad358acede4db582da9ac162487, type: 3}
+--- !u!114 &1183517328447327395 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2294131165946912275, guid: d7363ad358acede4db582da9ac162487, type: 3}
+  m_PrefabInstance: {fileID: 1133454233114530480}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2744572484277344899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1337d76aaa59a224a8da4e83cad38fd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &2744572484277344899 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3002907803424507955, guid: d7363ad358acede4db582da9ac162487, type: 3}
+  m_PrefabInstance: {fileID: 1133454233114530480}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-2420695591991488936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2744572484277344899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05aa87da05441e94e9d5eef05369cd98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entity: {fileID: 1183517328447327395}
+  raycastDistance: 32
