@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour {
   public Rigidbody2D rb;
+  public BoxCollider2D boxCollider;
   public HealthBar healthBar;
   public float moveSpeed = 5;
   public int maxHealth = 100;

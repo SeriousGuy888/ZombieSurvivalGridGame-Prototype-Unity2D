@@ -10,8 +10,8 @@ public class AStarPathfinder : MonoBehaviour {
   private static readonly int2[] allNeighbourOffsets = new int2[] {
     new int2(1, 0),  new int2(-1, 0),
     new int2(0, 1),  new int2(0, -1),
-    new int2(1, 1),  new int2(-1, 1),
-    new int2(1, -1), new int2(-1, -1),
+    // new int2(1, 1),  new int2(-1, 1),
+    // new int2(1, -1), new int2(-1, -1),
   };
 
 

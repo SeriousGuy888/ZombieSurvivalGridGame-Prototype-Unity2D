@@ -167,7 +167,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb79f9fa4ffbe2458c22cbd9dc1fed9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zombie: {fileID: -5394522604667455907, guid: ef0d042b56843ec4db8a2d7003849146, type: 3}
+  zombie: {fileID: -2420695591991488936, guid: ef0d042b56843ec4db8a2d7003849146, type: 3}
+--- !u!1 &371561910
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 371561911}
+  - component: {fileID: 371561912}
+  m_Layer: 0
+  m_Name: ObjectPooler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &371561911
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371561910}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1752401691}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &371561912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371561910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc49d74c57cd81a41b13f156b3208e90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pools:
+  - tag: ScentMarker
+    prefab: {fileID: 394554534182764502, guid: 8d869df78aceff247b11d21769f5f8d4, type: 3}
+    size: 100
 --- !u!1 &509913198
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,6 +701,10 @@ PrefabInstance:
       propertyPath: hudHealthBar
       value: 
       objectReference: {fileID: 1888789197}
+    - target: {fileID: 6186439033605273410, guid: 4e1bfee6f94930445a7fd711c744519a, type: 3}
+      propertyPath: scentMarkerPrefab
+      value: 
+      objectReference: {fileID: 691468462199518691, guid: 8d869df78aceff247b11d21769f5f8d4, type: 3}
     - target: {fileID: 7790874875782380503, guid: 4e1bfee6f94930445a7fd711c744519a, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -698,6 +750,7 @@ Transform:
   - {fileID: 509913199}
   - {fileID: 786207316}
   - {fileID: 201676477}
+  - {fileID: 371561911}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

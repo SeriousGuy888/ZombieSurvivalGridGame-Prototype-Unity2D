@@ -263,9 +263,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 3002907803424507967}
+  boxCollider: {fileID: 3002907803424507960}
   healthBar: {fileID: 761082320768628803}
   moveSpeed: 5
   maxHealth: 100
+  movement: {x: 0, y: 0}
   health: 0
 --- !u!1001 &8513270675419954183
 PrefabInstance:
