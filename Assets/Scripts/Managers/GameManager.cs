@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour {
 
     switch(newState) {
       case GameState.GenerateMap:
-        GridManager.Instance.GenerateGrid();
+        MapManager.Instance.GenerateMap();
         break;
       case GameState.SpawnPlayer:
         player.Spawn();

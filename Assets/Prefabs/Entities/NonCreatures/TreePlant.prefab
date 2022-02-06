@@ -10,10 +10,18 @@ PrefabInstance:
     - target: {fileID: 2294131165946912275, guid: d7363ad358acede4db582da9ac162487, type: 3}
       propertyPath: specificEntityScript
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8271902116882165725}
     - target: {fileID: 3002907803424507955, guid: d7363ad358acede4db582da9ac162487, type: 3}
       propertyPath: m_Name
       value: TreePlant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002907803424507955, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002907803424507960, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3002907803424507964, guid: d7363ad358acede4db582da9ac162487, type: 3}
       propertyPath: m_Sprite
@@ -62,6 +70,10 @@ PrefabInstance:
     - target: {fileID: 3002907803424507965, guid: d7363ad358acede4db582da9ac162487, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002907803424507967, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_BodyType
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 938675372919212893, guid: d7363ad358acede4db582da9ac162487, type: 3}

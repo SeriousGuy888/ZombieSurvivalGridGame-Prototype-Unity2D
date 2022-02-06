@@ -27,7 +27,7 @@ public class Player : BaseCreature {
   }
 
   public void Spawn() {
-    BaseTile spawnTile = GridManager.Instance.GetTile(GridManager.Instance.GetSpawnPoint);
+    BaseTile spawnTile = MapManager.Instance.GetTile(MapManager.Instance.GetSpawnPoint);
     gameObject.transform.position = spawnTile.transform.position;
   }
 }

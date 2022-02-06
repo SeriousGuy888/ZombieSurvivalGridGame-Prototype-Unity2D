@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridManager : MonoBehaviour {
-  public static GridManager Instance;
+public class MapManager : MonoBehaviour {
+  public static MapManager Instance;
 
   public int width, height;
-  [SerializeField] private float noiseScale;
+  [SerializeField] private float terrainNoiseScale;
   [SerializeField] private float waterThreshold;
   [SerializeField] private BaseTile grassTile, waterTile;
+  [SerializeField] private BaseNonCreature treePrefab;
 
   private Dictionary<Vector2Int, BaseTile> allTiles;
 
@@ -24,9 +25,16 @@ public class GridManager : MonoBehaviour {
     return null;
   }
 
-  public void GenerateGrid() {
+
+  public void GenerateMap() {
+    GenerateGrid();
+    PlaceTrees();
+    GameManager.Instance.UpdateGameState(GameState.SpawnPlayer);
+  }
+
+  private void GenerateGrid() {
     allTiles = new Dictionary<Vector2Int, BaseTile>();
-    Texture2D tex = GeneratePerlinNoiseTexture();
+    Texture2D tex = GeneratePerlinNoiseTexture(terrainNoiseScale);
 
     for(int x = 0; x < width; x++) {
       for(int y = 0; y < height; y++) {
@@ -40,19 +48,29 @@ public class GridManager : MonoBehaviour {
         allTiles[new Vector2Int(x, y)] = spawnedTile;
       }
     }
+  }
 
-    GameManager.Instance.UpdateGameState(GameState.SpawnPlayer);
+  private void PlaceTrees() {
+    Texture2D tex = GeneratePerlinNoiseTexture(10);
+    foreach(var kvp in allTiles) {
+      var tile = kvp.Value;
+
+      float pixelVal = tex.GetPixel(tile.coords.x, tile.coords.y).r;
+      
+      if(pixelVal > 0.67 && tile is GrassTile)
+        Instantiate(treePrefab, tile.transform.position, Quaternion.identity);
+    }
   }
 
 
-  private Texture2D GeneratePerlinNoiseTexture() {
+  private Texture2D GeneratePerlinNoiseTexture(float noiseScale) {
     Texture2D texture = new Texture2D(width, height);
     float noiseOffsetX = Random.Range(0f, 666f);
     float noiseOffsetY = Random.Range(0f, 666f);
 
     for(int x = 0; x < width; x++) {
       for(int y = 0; y < height; y++) {
-        Color col = CalcCol(x, y, noiseOffsetX, noiseOffsetY);
+        Color col = CalcCol(x, y, noiseOffsetX, noiseOffsetY, noiseScale);
         texture.SetPixel(x, y, col);
       }
     }
@@ -61,17 +79,17 @@ public class GridManager : MonoBehaviour {
     return texture;
   }
 
-  private Color CalcCol(int x, int y, float noiseOffsetX, float noiseOffsetY) {
+  private Color CalcCol(int x, int y, float noiseOffsetX, float noiseOffsetY, float noiseScale) {
     float xFloat = (float) x / width * noiseScale + noiseOffsetX;
     float yFloat = (float) y / width * noiseScale + noiseOffsetY;
 
     float sample = Mathf.PerlinNoise(xFloat, yFloat);
 
     // make land less common towards the edges of the map
-    Vector2 middle = new Vector2(width / 2, height / 2);
-    Vector2 currPoint = new Vector2(x, y);
-    float diff = Vector2.Distance(middle, currPoint) / (width / 2);
-    sample -= (diff * 0.4f);
+    // Vector2 middle = new Vector2(width / 2, height / 2);
+    // Vector2 currPoint = new Vector2(x, y);
+    // float diff = Vector2.Distance(middle, currPoint) / (width / 2);
+    // sample -= (diff * 0.4f);
 
 
     return new Color(sample, 0, 0);

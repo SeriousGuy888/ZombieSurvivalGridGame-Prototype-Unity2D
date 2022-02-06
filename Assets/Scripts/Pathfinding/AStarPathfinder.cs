@@ -18,11 +18,11 @@ public class AStarPathfinder : MonoBehaviour {
 
   private void Awake() {
     this.grid = new PathNode[
-      GridManager.Instance.width,
-      GridManager.Instance.height
+      MapManager.Instance.width,
+      MapManager.Instance.height
     ];
 
-    var tilePairs = GridManager.Instance.GetAllTiles();
+    var tilePairs = MapManager.Instance.GetAllTiles();
     if(tilePairs == null)
       return;
 
