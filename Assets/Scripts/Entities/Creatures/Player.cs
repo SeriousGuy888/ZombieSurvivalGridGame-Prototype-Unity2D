@@ -16,11 +16,6 @@ public class Player : BaseCreature {
     cam.position = new Vector3(transform.position.x, transform.position.y, -10);
   }
 
-
-  public void UpdateHUDHealthBar() {
-    hudHealthBar.SetHealth(health);
-  }
-
   public override void ApplyDamage(int damage) {
     base.ApplyDamage(damage);
     hudHealthBar.SetHealth(health);

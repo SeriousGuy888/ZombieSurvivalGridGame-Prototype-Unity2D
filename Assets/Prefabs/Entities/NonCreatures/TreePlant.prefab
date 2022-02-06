@@ -7,6 +7,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 761082320768628800, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 761082320768628800, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_MaxValue
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2294131165946912275, guid: d7363ad358acede4db582da9ac162487, type: 3}
       propertyPath: specificEntityScript
       value: 
@@ -18,6 +26,14 @@ PrefabInstance:
     - target: {fileID: 3002907803424507955, guid: d7363ad358acede4db582da9ac162487, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002907803424507960, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002907803424507960, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_Size.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3002907803424507960, guid: d7363ad358acede4db582da9ac162487, type: 3}
       propertyPath: m_Enabled
