@@ -7,7 +7,7 @@ public class MapManager : MonoBehaviour {
   public int width, height;
   [SerializeField] private float terrainNoiseScale;
   [SerializeField] private float waterThreshold;
-  [SerializeField] private BaseTile grassTile, waterTile;
+  [SerializeField] private BaseTile grassTile, waterTile, barrierTile;
   [SerializeField] private BaseNonCreature treePrefab;
 
   private Dictionary<Vector2Int, BaseTile> allTiles;
@@ -39,9 +39,15 @@ public class MapManager : MonoBehaviour {
     for(int x = 0; x < width; x++) {
       for(int y = 0; y < height; y++) {
         float pixelVal = tex.GetPixel(x, y).r;
-        BaseTile whichTile = pixelVal > waterThreshold ? grassTile : waterTile;
+        BaseTile tileType;
+        if(x == 0 || y == 0 || x == width - 1 || y == height - 1) { // spawn barrier tiles on edge
+          tileType = barrierTile;
+        } else { // everywhere else, spawn tiles based on the perlin noise texture
+          tileType = pixelVal > waterThreshold ? grassTile : waterTile;
+        }
 
-        BaseTile spawnedTile = Instantiate(whichTile, new Vector2(x, y), Quaternion.identity, transform);
+        
+        BaseTile spawnedTile = Instantiate(tileType, new Vector2(x, y), Quaternion.identity, transform);
         spawnedTile.name = $"Tile {x},{y}";
 
         spawnedTile.Init(x, y);
