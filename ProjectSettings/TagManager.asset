@@ -14,7 +14,7 @@ TagManager:
   - Walkable
   - Obstacle
   - Entity
-  - ScentMarker
+  - Player
   - 
   - 
   - 

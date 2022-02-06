@@ -276,7 +276,7 @@ MonoBehaviour:
     m_Bits: 128
   lineOfSightMask:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 896
 --- !u!1001 &8513270675419954183
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -36,6 +36,8 @@ public class Entity : MonoBehaviour {
       targetPlayer = GameManager.Instance.player;
       hitboxRadius = boxCollider.size.x / 2;
       waypoints = new List<Vector2Int>();
+
+      // InvokeRepeating("RunPathfinding", 0f, 0.1f);
     }
   }
 
@@ -46,59 +48,63 @@ public class Entity : MonoBehaviour {
     if(health <= 0)
       Die();
     
+    if(enablePathfinding)
+      RunPathfinding();
+  }
 
-    if(enablePathfinding) {
-      Vector2 vecBetween = targetPlayer.transform.position - transform.position;
-      RaycastHit2D hit = Physics2D.CircleCast(
-        origin:    transform.position,
-        radius:    hitboxRadius,
-        direction: vecBetween.normalized,
-        distance:  maxRaycastDistance,
-        layerMask: lineOfSightMask);
-      
+  private void RunPathfinding() {
 
-      if(hit.collider != null && hit.collider.gameObject.Equals(targetPlayer.gameObject)) {
-        SetMovement(vecBetween);
+    Vector2 vecBetween = targetPlayer.transform.position - transform.position;
+    RaycastHit2D hit = Physics2D.CircleCast(
+      origin:    transform.position,
+      radius:    hitboxRadius,
+      direction: vecBetween.normalized,
+      distance:  maxRaycastDistance,
+      layerMask: lineOfSightMask);
+    
+
+    if(hit.collider != null && hit.collider.gameObject.Equals(targetPlayer.gameObject)) {
+      SetMovement(vecBetween);
+
+      // FindNewPath(null);
+    } else {
+      if(waypoints == null || waypoints.Count == 0) {
         FindNewPath(null);
       } else {
-        if(waypoints == null || waypoints.Count == 0) {
-          FindNewPath(null);
-        } else {
-          for(int i = 0; i < waypoints.Count; i++) {
-            if(Vector2.Distance(transform.position, waypoints[i]) < 0.1) {
-              waypoints.Remove(waypoints[i]);
-              break;
-            }
-          }
-
-          bool waypointFound = false;
-          foreach(var waypoint in waypoints) {
-            vecBetween = waypoint - (Vector2) transform.position;
-            hit = Physics2D.CircleCast(
-              origin:    transform.position,
-              radius:    hitboxRadius,
-              direction: vecBetween.normalized,
-              distance:  Math.Min(maxRaycastDistance, vecBetween.magnitude),
-              layerMask: obstacleMask);
-            
-            if(hit.collider != null)
-              continue;
-            
-            // don't move if already touching the player, as that will create rapid unnecessary physics calculations
-            if(Vector2.Distance(transform.position, targetPlayer.transform.position) > hitboxRadius)
-              SetMovement(vecBetween);
-
-
-            waypointFound = true;
+        for(int i = 0; i < waypoints.Count; i++) {
+          if(Vector2.Distance(transform.position, waypoints[i]) < 0.1) {
+            waypoints.Remove(waypoints[i]);
             break;
           }
+        }
 
-          if(!waypointFound) {
-            if(waypoints.Count > 0)
-              FindNewPath(waypoints[0]);
-            else
-              FindNewPath(null);
-          }
+        bool waypointFound = false;
+        foreach(var waypoint in waypoints) {
+          vecBetween = waypoint - (Vector2) transform.position;
+          hit = Physics2D.CircleCast(
+            origin:    transform.position,
+            radius:    hitboxRadius,
+            direction: vecBetween.normalized,
+            distance:  Math.Min(maxRaycastDistance, vecBetween.magnitude),
+            layerMask: obstacleMask);
+          
+          if(hit.collider != null)
+            continue;
+          
+          // don't move if already touching the player, as that will create rapid unnecessary physics calculations
+          if(Vector2.Distance(transform.position, targetPlayer.transform.position) > hitboxRadius)
+            SetMovement(vecBetween);
+
+
+          waypointFound = true;
+          break;
+        }
+
+        if(!waypointFound) {
+          if(waypoints.Count > 0)
+            FindNewPath(waypoints[0]);
+          else
+            FindNewPath(null);
         }
       }
     }
