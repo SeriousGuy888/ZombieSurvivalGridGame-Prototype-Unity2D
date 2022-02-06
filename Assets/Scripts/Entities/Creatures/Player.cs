@@ -25,4 +25,9 @@ public class Player : BaseCreature {
     BaseTile spawnTile = MapManager.Instance.GetTile(MapManager.Instance.GetSpawnPoint);
     gameObject.transform.position = spawnTile.transform.position;
   }
+
+  public override void Die() {
+    base.Die();
+    GameManager.Instance.UpdateGameState(GameState.GameOver);
+  }
 }

@@ -34,7 +34,7 @@ public class BaseEntity : MonoBehaviour {
     ApplyDamage(10);
   }
 
-  public void Die() {
+  public virtual void Die() {
     Debug.Log(gameObject.name + ": oeuf");
     Destroy(gameObject);
   }

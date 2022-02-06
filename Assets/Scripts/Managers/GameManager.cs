@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour {
   public GameState State;
 
   public Player player;
+  public GameObject gameOverScreen;
 
   private void Awake() {
     Instance = this;
@@ -28,7 +29,14 @@ public class GameManager : MonoBehaviour {
         break;
       case GameState.Play:
         break;
+      case GameState.GameOver:
+        GameOver();
+        break;
     }
+  }
+
+  private void GameOver() {
+    gameOverScreen.SetActive(true);
   }
 }
 
@@ -36,4 +44,5 @@ public enum GameState {
   GenerateMap,
   SpawnPlayer,
   Play,
+  GameOver,
 }

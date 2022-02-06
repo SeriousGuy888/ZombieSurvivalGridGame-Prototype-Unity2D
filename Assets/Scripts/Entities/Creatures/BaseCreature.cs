@@ -66,9 +66,11 @@ public class BaseCreature : BaseEntity {
     
 
     if(hit.collider != null && hit.collider.gameObject.Equals(targetPlayer.gameObject)) {
-      SetMovement(vecBetween);
-
-      // FindNewPath(null);
+      if(boxCollider.IsTouching(targetPlayer.boxCollider)) {
+        targetPlayer.ApplyDamage(1);
+      } else {
+        SetMovement(vecBetween);
+      }
     } else {
       if(waypoints == null || waypoints.Count == 0) {
         FindNewPath(null);
@@ -89,7 +91,7 @@ public class BaseCreature : BaseEntity {
             direction: vecBetween.normalized,
             distance:  Math.Min(maxRaycastDistance, vecBetween.magnitude),
             layerMask: obstacleMask);
-          
+
           // don't move if this entity is already touching another entity or obstacle,
           // as that will create an unnecessary physics calculation
           if(allHits.Length > 0) {
@@ -97,8 +99,9 @@ public class BaseCreature : BaseEntity {
               continue;
           }
           
+          
           // don't move if already touching the player, as that will create rapid unnecessary physics calculations
-          if(Vector2.Distance(transform.position, targetPlayer.transform.position) > hitboxRadius)
+          if(!targetPlayer.boxCollider.IsTouching(boxCollider))
             SetMovement(vecBetween);
 
 
