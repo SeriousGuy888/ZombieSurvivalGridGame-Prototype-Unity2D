@@ -249,7 +249,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd8df5b7b17a1648a8a9a8608548e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 2294131165946912275}
   rb: {fileID: 3002907803424507967}
   boxCollider: {fileID: 3002907803424507960}
   healthBar: {fileID: 761082320768628803}
@@ -330,10 +329,6 @@ PrefabInstance:
     - target: {fileID: 8983237341935666245, guid: 441bfe658712b744ca5760d310bf5d65, type: 3}
       propertyPath: m_Name
       value: HealthBar
-      objectReference: {fileID: 0}
-    - target: {fileID: 8983237341935666245, guid: 441bfe658712b744ca5760d310bf5d65, type: 3}
-      propertyPath: m_Layer
-      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8983237341935666245, guid: 441bfe658712b744ca5760d310bf5d65, type: 3}
       propertyPath: m_IsActive

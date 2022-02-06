@@ -83,15 +83,19 @@ public class BaseCreature : BaseEntity {
         bool waypointFound = false;
         foreach(var waypoint in waypoints) {
           vecBetween = waypoint - (Vector2) transform.position;
-          hit = Physics2D.CircleCast(
+          RaycastHit2D[] allHits = Physics2D.CircleCastAll(
             origin:    transform.position,
             radius:    hitboxRadius,
             direction: vecBetween.normalized,
             distance:  Math.Min(maxRaycastDistance, vecBetween.magnitude),
             layerMask: obstacleMask);
           
-          if(hit.collider != null)
-            continue;
+          // don't move if this entity is already touching another entity or obstacle,
+          // as that will create an unnecessary physics calculation
+          if(allHits.Length > 0) {
+            if(allHits[0].collider.IsTouching(boxCollider))
+              continue;
+          }
           
           // don't move if already touching the player, as that will create rapid unnecessary physics calculations
           if(Vector2.Distance(transform.position, targetPlayer.transform.position) > hitboxRadius)

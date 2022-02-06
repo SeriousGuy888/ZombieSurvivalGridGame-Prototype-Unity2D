@@ -87,7 +87,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderer: {fileID: 7893835559164157731}
   highlight: {fileID: 3767441037934535583}
-  cratePrefab: {fileID: 123771838487515806, guid: e61994e9167c8404f84d9f417b3aaa27, type: 3}
+  cratePrefab: {fileID: 8072838164585198080, guid: f06842483e76802469a6d86de19b3ae1, type: 3}
   coords: {x: 0, y: 0}
   checkerCol1: {r: 0, g: 0.5686275, b: 0.039215688, a: 1}
   checkerCol2: {r: 0, g: 0.5372549, b: 0.039215688, a: 1}
