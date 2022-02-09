@@ -38,7 +38,7 @@ public class AStarPathfinder : MonoBehaviour {
     }
   }
 
-  public List<Vector2Int> FindPath(Vector2 startPos, Vector2 endPos, List<Vector2> obstructedNodes) {
+  public List<Vector2Int> FindPath(Vector2 startPos, Vector2 endPos, List<Vector2> obstructedNodes, int maxDist) {
     List<int2> obstructedNodesInt2 = new List<int2>();
     foreach(var node in obstructedNodes) {
       obstructedNodesInt2.Add(new int2((int) node.x, (int) node.y));
@@ -47,7 +47,8 @@ public class AStarPathfinder : MonoBehaviour {
     var path = CalcPath(
       new int2((int) startPos.x, (int) startPos.y),
       new int2((int) endPos.x, (int) endPos.y),
-      obstructedNodesInt2
+      obstructedNodesInt2,
+      maxDist
     );
   
     var pathVector2Int = new List<Vector2Int>();
@@ -56,7 +57,7 @@ public class AStarPathfinder : MonoBehaviour {
     return pathVector2Int;
   }
 
-  private List<int2> CalcPath(int2 startPos, int2 endPos, List<int2> obstructedNodes) {
+  private List<int2> CalcPath(int2 startPos, int2 endPos, List<int2> obstructedNodes, int maxDist) {
     for(int x = 0; x < grid.GetLength(0); x++) {
       for(int y = 0; y < grid.GetLength(0); y++) {
         var node = grid[x, y];
@@ -96,6 +97,15 @@ public class AStarPathfinder : MonoBehaviour {
     while(openList.Count > 0) {
       int2 currentNodeCoords = GetLowestFCostNodeIndex(openList, grid);
       PathNode currentNode = grid[currentNodeCoords.x, currentNodeCoords.y];
+
+      
+          
+      // if either hCost or gCost is above max dist, return empty list; no path found
+      if(startNode.hCost > maxDist * ORTHOGONAL_COST || startNode.gCost > maxDist * ORTHOGONAL_COST)
+        return new List<int2>();
+
+
+
 
       // destination reached
       if(currentNodeCoords.Equals(endNode.coords))
@@ -172,11 +182,14 @@ public class AStarPathfinder : MonoBehaviour {
   private int CalcDistanceCost(int2 aPos, int2 bPos) {
     int xDist = math.abs(aPos.x - bPos.x);
     int yDist = math.abs(aPos.y - bPos.y);
-    int remainingStraightMovement = math.abs(xDist - yDist);
-    
-    return
-      DIAGONAL_COST * math.min(xDist, yDist) +
-      ORTHOGONAL_COST * remainingStraightMovement;
+
+    return (xDist + yDist) * ORTHOGONAL_COST;
+
+    // int remainingStraightMovement = math.abs(xDist - yDist);
+
+    // return
+    //   DIAGONAL_COST * math.min(xDist, yDist) +
+    //   ORTHOGONAL_COST * remainingStraightMovement;
   }
 
   

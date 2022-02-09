@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BaseTile : MonoBehaviour {
   [SerializeField] protected SpriteRenderer _renderer;
-  [SerializeField] private GameObject highlight;
+  [SerializeField] public GameObject highlight; // aaaa
 
   [SerializeField] private GameObject cratePrefab;
 

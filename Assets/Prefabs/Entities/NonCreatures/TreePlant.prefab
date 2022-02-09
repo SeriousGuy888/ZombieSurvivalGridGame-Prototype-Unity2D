@@ -7,6 +7,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 436842641028137254, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 761082320595856643, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 761082320768628800, guid: d7363ad358acede4db582da9ac162487, type: 3}
       propertyPath: m_Value
       value: 1
@@ -14,6 +22,18 @@ PrefabInstance:
     - target: {fileID: 761082320768628800, guid: d7363ad358acede4db582da9ac162487, type: 3}
       propertyPath: m_MaxValue
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 761082320768628802, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 761082320915465365, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 761082322228135704, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2294131165946912275, guid: d7363ad358acede4db582da9ac162487, type: 3}
       propertyPath: specificEntityScript
@@ -90,6 +110,10 @@ PrefabInstance:
     - target: {fileID: 3002907803424507967, guid: d7363ad358acede4db582da9ac162487, type: 3}
       propertyPath: m_BodyType
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002907803424507967, guid: d7363ad358acede4db582da9ac162487, type: 3}
+      propertyPath: m_Simulated
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 938675372919212893, guid: d7363ad358acede4db582da9ac162487, type: 3}

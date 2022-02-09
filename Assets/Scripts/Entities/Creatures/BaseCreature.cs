@@ -16,6 +16,7 @@ public class BaseCreature : BaseEntity {
   private AStarPathfinder pathfinder; // an instance of the pathfinder
   private Player targetPlayer;        // player that the entity is currently targeting
   private List<Vector2Int> waypoints; // the waypoints found by the pathfinder
+  private float lastFailedPathfind;   // timestamp of the last time a pathfinding operation returned no path
 
   // used for circlecasts so the entity will discard paths too narrow for it
   // also used to stop the entity from pushing on the player too much and causing lag from a lot of physics collisions
@@ -32,6 +33,7 @@ public class BaseCreature : BaseEntity {
       targetPlayer = GameManager.Instance.player;
       hitboxRadius = boxCollider.size.x / 2;
       waypoints = new List<Vector2Int>();
+      lastFailedPathfind = 0;
     }
   }
 
@@ -56,6 +58,9 @@ public class BaseCreature : BaseEntity {
 
 
   private void RunPathfinding() {
+    if(targetPlayer == null)
+      return;
+
     Vector2 vecBetween = targetPlayer.transform.position - transform.position;
     RaycastHit2D hit = Physics2D.CircleCast(
       origin:    transform.position,
@@ -66,6 +71,8 @@ public class BaseCreature : BaseEntity {
     
 
     if(hit.collider != null && hit.collider.gameObject.Equals(targetPlayer.gameObject)) {
+      ClearWaypoints();
+
       if(boxCollider.IsTouching(targetPlayer.boxCollider)) {
         targetPlayer.ApplyDamage(1);
       } else {
@@ -76,7 +83,7 @@ public class BaseCreature : BaseEntity {
         FindNewPath(null);
       } else {
         for(int i = 0; i < waypoints.Count; i++) {
-          if(Vector2.Distance(transform.position, waypoints[i]) < 0.1) {
+          if(Vector2.Distance(transform.position, waypoints[i]) < 0.05) {
             waypoints.Remove(waypoints[i]);
             break;
           }
@@ -92,10 +99,21 @@ public class BaseCreature : BaseEntity {
             distance:  Math.Min(maxRaycastDistance, vecBetween.magnitude),
             layerMask: obstacleMask);
 
+          if(allHits.Length > 0)
+            Debug.Log(allHits[0].collider);
+
           // don't move if this entity is already touching another entity or obstacle,
           // as that will create an unnecessary physics calculation
           if(allHits.Length > 0) {
-            if(allHits[0].collider.IsTouching(boxCollider))
+            // if(allHits[0].collider.IsTouching(boxCollider))
+            // float dist = Vector2.Distance(transform.position, allHits[0].collider.transform.position);
+            float dist = allHits[0].distance;
+            float thresh = hitboxRadius * 2 + 0.4f;
+
+            // Debug.Log(dist);
+            // Debug.Log(thresh);
+
+            if(allHits[0].collider.IsTouching(boxCollider) || dist < thresh)
               continue;
           }
           
@@ -120,7 +138,19 @@ public class BaseCreature : BaseEntity {
   }
 
 
+  private void ClearWaypoints() {
+    foreach(var waypoint in waypoints)
+      MapManager.Instance.GetTile(waypoint).highlight.SetActive(false);
+    waypoints.Clear();
+  }
+
   private void FindNewPath(Vector2? obstructedWaypoint) {
+    ClearWaypoints();
+    if(Time.time - lastFailedPathfind < 5) { // if a pathfind in the past 5 seconds failed
+      return; // don't try again until five seconds have passed
+    }
+
+
     var obstructedCoords = new List<Vector2>();
     if(obstructedWaypoint.HasValue)
       obstructedCoords.Add(obstructedWaypoint.Value);
@@ -131,8 +161,19 @@ public class BaseCreature : BaseEntity {
       Vector2 coords = collider.transform.position;
       if(!obstructedCoords.Contains(coords))
         obstructedCoords.Add(coords);
+      
+      Debug.Log(collider.gameObject.name);
     }
     
-    waypoints = pathfinder.FindPath(transform.position, targetPlayer.transform.position, obstructedCoords);
+
+    
+
+
+    waypoints = pathfinder.FindPath(transform.position, targetPlayer.transform.position, obstructedCoords, 32);
+    if(waypoints.Count == 0)
+      lastFailedPathfind = Time.time;
+
+    foreach(var waypoint in waypoints)
+      MapManager.Instance.GetTile(waypoint).highlight.SetActive(true);
   }
 }
