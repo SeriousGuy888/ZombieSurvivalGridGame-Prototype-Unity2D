@@ -89,17 +89,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1208e386eb9ef6f499b3518187d09b4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1183517328447327395 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2294131165946912275, guid: d7363ad358acede4db582da9ac162487, type: 3}
-  m_PrefabInstance: {fileID: 1133454233114530480}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2744572484277344899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1337d76aaa59a224a8da4e83cad38fd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2744572484277344899 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3002907803424507955, guid: d7363ad358acede4db582da9ac162487, type: 3}
@@ -117,7 +106,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 174b53f4b206dbb4cae4dc81a0e4629f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 1183517328447327395}
   rb: {fileID: 2744572484277344911}
   boxCollider: {fileID: 2744572484277344904}
   healthBar: {fileID: 375275173672790771}
@@ -126,13 +114,29 @@ MonoBehaviour:
   movement: {x: 0, y: 0}
   moveSpeed: 3
   enablePathfinding: 1
-  maxRaycastDistance: 32
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 384
-  lineOfSightMask:
-    serializedVersion: 2
-    m_Bits: 640
+  targetPlayer: {fileID: 0}
+--- !u!195 &-857268223047829018
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2744572484277344899}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!61 &2744572484277344904 stripped
 BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 3002907803424507960, guid: d7363ad358acede4db582da9ac162487, type: 3}

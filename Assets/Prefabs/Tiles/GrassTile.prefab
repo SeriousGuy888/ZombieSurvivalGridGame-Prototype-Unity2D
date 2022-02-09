@@ -55,6 +55,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrassTile
       objectReference: {fileID: 0}
+    - target: {fileID: 7963180098982839999, guid: 6897bf35946050343a8490eb0593dbe6, type: 3}
+      propertyPath: m_OverrideArea
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5611898904339989171, guid: 6897bf35946050343a8490eb0593dbe6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6897bf35946050343a8490eb0593dbe6, type: 3}

@@ -4,6 +4,8 @@ using UnityEngine;
 public class MapManager : MonoBehaviour {
   public static MapManager Instance;
 
+  public GameObject navMeshParent;
+
   public int width, height;
   [SerializeField] private float terrainNoiseScale;
   [SerializeField] private float waterThreshold;
@@ -49,11 +51,14 @@ public class MapManager : MonoBehaviour {
         
         BaseTile spawnedTile = Instantiate(tileType, new Vector2(x, y), Quaternion.identity, transform);
         spawnedTile.name = $"Tile {x},{y}";
+        spawnedTile.transform.SetParent(navMeshParent.transform);
 
         spawnedTile.Init(x, y);
         allTiles[new Vector2Int(x, y)] = spawnedTile;
       }
     }
+
+    navMeshParent.GetComponent<NavMesh>().Bake();
   }
 
   private void PlaceTrees() {
