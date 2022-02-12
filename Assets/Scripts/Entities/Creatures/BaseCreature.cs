@@ -35,7 +35,7 @@ public class BaseCreature : BaseEntity {
     rb.MovePosition(rb.position + (movement * moveSpeed * Time.fixedDeltaTime));
     this.movement = Vector2.zero;
 
-    if(enablePathfinding)
+    if(enablePathfinding && gameObject != null)
       agent.SetDestination(targetPlayer.transform.position);
   }
 

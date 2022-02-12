@@ -34,8 +34,10 @@ public class BaseTile : MonoBehaviour {
     if(Input.GetMouseButtonDown(0))
       MonsterSpawningManager.Instance.SpawnZombie(transform.position);
     if(Input.GetMouseButtonDown(1)) {
-      if(cratePrefab != null)
+      if(cratePrefab != null) {
         Instantiate(cratePrefab, transform.position, Quaternion.identity);
+        MapManager.Instance.RefreshNavMesh();
+      }
     }
   }
 }

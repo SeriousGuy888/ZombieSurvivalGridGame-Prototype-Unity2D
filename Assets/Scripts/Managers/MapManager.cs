@@ -27,6 +27,10 @@ public class MapManager : MonoBehaviour {
     return null;
   }
 
+  public void RefreshNavMesh() {
+    navMeshParent.GetComponent<NavMesh>().Bake();
+  }
+
 
   public void GenerateMap() {
     GenerateGrid();
@@ -58,7 +62,7 @@ public class MapManager : MonoBehaviour {
       }
     }
 
-    navMeshParent.GetComponent<NavMesh>().Bake();
+    RefreshNavMesh();
   }
 
   private void PlaceTrees() {
