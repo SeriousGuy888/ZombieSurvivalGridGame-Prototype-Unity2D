@@ -9,24 +9,32 @@ public class MapManager : MonoBehaviour {
   }
 
   public int mapSize = 32;
-  public Tilemap terrainTilemap;
+  public Tilemap terrainTilemap, structureTilemap;
   public Dictionary<Vector2Int, GameTile> gameTiles;
   [SerializeField] private Tile barrierTile, grassTile, waterTile;
+  [SerializeField] private Tile treeTile;
 
   public void BuildMap() {
-    Texture2D tex = PerlinNoise.Instance.GenerateTexture(mapSize, mapSize);
+    Texture2D terrainTex = PerlinNoise.Instance.GenerateTexture(mapSize, 3);
+    Texture2D treeTex = PerlinNoise.Instance.GenerateTexture(mapSize, 10);
     gameTiles = new Dictionary<Vector2Int, GameTile>();
 
     for(int x = 0; x < mapSize; x++) {
       for(int y = 0; y < mapSize; y++) {
-        float pixelVal = tex.GetPixel(x, y).r;
+        float terrainPixelValue = terrainTex.GetPixel(x, y).r;
+        float treePixelValue = treeTex.GetPixel(x, y).r;
 
-        TerrainType terrainType = pixelVal < 0.3f ? TerrainType.Water : TerrainType.Grass;
+        TerrainType terrainType = terrainPixelValue < 0.3f ? TerrainType.Water : TerrainType.Grass;
         if(x == 0 || y == 0 || x == mapSize - 1 || y == mapSize - 1)
           terrainType = TerrainType.Barrier;
 
         Vector2Int coords = new Vector2Int(x, y);
+
         GameTile newGameTile = new GameTile((Vector2Int) coords, terrainType);
+
+        if(treePixelValue > 0.67 && terrainType == TerrainType.Grass)
+          newGameTile.structureType = StructureType.Tree;
+
         gameTiles.Add((Vector2Int) coords, newGameTile);
       }
     }
@@ -41,19 +49,29 @@ public class MapManager : MonoBehaviour {
       GameTile gameTile = kvp.Value;
       Vector3Int coords3D = (Vector3Int) gameTile.coords;
 
-      Tile tileType = grassTile;
+      Tile terrainTileType = grassTile;
       switch(gameTile.terrainType) {
         case TerrainType.Barrier:
-          tileType = barrierTile;
+          terrainTileType = barrierTile;
           break;
         case TerrainType.Grass:
-          tileType = grassTile;
+          terrainTileType = grassTile;
           break;
         case TerrainType.Water:
-          tileType = waterTile;
+          terrainTileType = waterTile;
           break;
       }
-      terrainTilemap.SetTile(coords3D, tileType);
+
+      Tile structureTileType = null;
+      switch(gameTile.structureType) {
+        case StructureType.Tree:
+          structureTileType = treeTile;
+          break;
+      }
+
+      terrainTilemap.SetTile(coords3D, terrainTileType);
+      if(structureTileType != null)
+        structureTilemap.SetTile(coords3D, structureTileType);
     }
   }
 
@@ -68,4 +86,9 @@ public enum TerrainType {
   Barrier,
   Grass,
   Water,
+}
+
+public enum StructureType {
+  None,
+  Tree,
 }
