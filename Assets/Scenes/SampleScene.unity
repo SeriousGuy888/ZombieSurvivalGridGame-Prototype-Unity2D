@@ -123,6 +123,86 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &65746995
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 65746998}
+  - component: {fileID: 65746997}
+  - component: {fileID: 65746996}
+  m_Layer: 0
+  m_Name: NavMesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &65746996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65746995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5da92d8db6479004e97f21dfa51b6853, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Surface2D: {fileID: 65746997}
+--- !u!114 &65746997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65746995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 148387606d0ccd84fa326ca211f274ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_OverrideByGrid: 1
+  m_UseMeshPrefab: {fileID: 0}
+  m_CompressBounds: 1
+  m_OverrideVector: {x: 1, y: 1, z: 1}
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_BuildHeightMesh: 0
+  m_HideEditorLogs: 0
+  m_NavMeshData: {fileID: 0}
+--- !u!4 &65746998
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65746995}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &67696191
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +262,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cb82a337c76e7240be949b2b7521ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noiseScale: 3
 --- !u!1 &206878047
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,6 +274,7 @@ GameObject:
   - component: {fileID: 206878050}
   - component: {fileID: 206878049}
   - component: {fileID: 206878051}
+  - component: {fileID: 206878052}
   m_Layer: 0
   m_Name: TerrainTilemap
   m_TagString: Untagged
@@ -344,6 +424,22 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!114 &206878052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206878047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &313699456
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,6 +487,7 @@ MonoBehaviour:
   cam: {fileID: 519420031}
   selectionOverlayTilemap: {fileID: 679216648}
   hoverTileAsset: {fileID: 11400000, guid: 96f18cb64ac3ad243bb854f8355210af, type: 2}
+  zombie: {fileID: 277912239266016797, guid: 7b58cbec30433504fa0d8ec9ab397a35, type: 3}
 --- !u!1 &461192715
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,9 +534,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapSize: 64
   terrainTilemap: {fileID: 206878050}
+  structureTilemap: {fileID: 1662984284}
+  navMesh: {fileID: 65746996}
   barrierTile: {fileID: 11400000, guid: 1f7fad46065136c4ea11fe12ffdd701b, type: 2}
   grassTile: {fileID: 11400000, guid: 2a4a65e83405ca74885c1ee5a680b257, type: 2}
   waterTile: {fileID: 11400000, guid: badd22b103b396746b83a0520a9a6748, type: 2}
+  treeTile: {fileID: 11400000, guid: 1915a7cf7d8563f4a91d8bd45f214163, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,7 +682,9 @@ GameObject:
   - component: {fileID: 679216650}
   - component: {fileID: 679216648}
   - component: {fileID: 679216649}
-  m_Layer: 0
+  - component: {fileID: 679216651}
+  - component: {fileID: 679216652}
+  m_Layer: 5
   m_Name: SelectionOverlayTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -691,6 +793,34 @@ Transform:
   m_Father: {fileID: 533835506}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &679216651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679216647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9d26a059c4ba924590deeced9f4a3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!19719996 &679216652
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679216647}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0.00001
 --- !u!114 &1661098740 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -6478869956089912066, guid: 05fb8a1ebab43394a867c3102c090335, type: 3}
@@ -713,6 +843,8 @@ GameObject:
   - component: {fileID: 1662984282}
   - component: {fileID: 1662984284}
   - component: {fileID: 1662984283}
+  - component: {fileID: 1662984285}
+  - component: {fileID: 1662984286}
   m_Layer: 0
   m_Name: StructureTilemap
   m_TagString: Untagged
@@ -822,6 +954,38 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!19719996 &1662984285
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1662984281}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0.00001
+--- !u!114 &1662984286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1662984281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &1937319065
 GameObject:
   m_ObjectHideFlags: 0

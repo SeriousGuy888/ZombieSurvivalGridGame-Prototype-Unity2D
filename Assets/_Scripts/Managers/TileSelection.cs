@@ -12,6 +12,8 @@ public class TileSelection : MonoBehaviour {
   private Vector3 prevMousePos;
   private Vector2Int hoveredTilePos;
 
+  [SerializeField] private Zombie zombie;
+
   private void Awake() {
     Instance = this;
     cam = Camera.main;
@@ -31,9 +33,12 @@ public class TileSelection : MonoBehaviour {
 
 
 
-  // public void Click() {
-  //   GameTile clickedTile = MapManager.Instance.GetTile(GetHoveredCellPos());
-  // }
+  public void Click() {
+    GameTile clickedTile = MapManager.Instance.GetTile(GetHoveredCellPos());
+    Instantiate(zombie,
+      MapManager.Instance.terrainTilemap.CellToWorld((Vector3Int) clickedTile.coords),
+      Quaternion.identity);
+  }
 
   // private void SelectTile(GameTile tile) {
   //   selectedTile = tile;

@@ -11,6 +11,7 @@ public class MapManager : MonoBehaviour {
   public int mapSize = 32;
   public Tilemap terrainTilemap, structureTilemap;
   public Dictionary<Vector2Int, GameTile> gameTiles;
+  [SerializeField] private NavMesh navMesh;
   [SerializeField] private Tile barrierTile, grassTile, waterTile;
   [SerializeField] private Tile treeTile;
 
@@ -40,6 +41,7 @@ public class MapManager : MonoBehaviour {
     }
 
     RenderMap();
+    navMesh.Bake();
     GameManager.Instance.player.Spawn();
     GameManager.Instance.UpdateGameState(GameState.Play);
   }
