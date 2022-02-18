@@ -3,11 +3,9 @@ using UnityEngine;
 
 public class Player : BaseCreature {
   [SerializeField] private Transform cam;
-  // [SerializeField] private HealthBar hudHealthBar;
 
   public override void Start() {
     base.Start();
-    // hudHealthBar.SetMaxHealth(maxHealth);
   }
 
   public override void FixedUpdate() {
@@ -16,9 +14,9 @@ public class Player : BaseCreature {
     cam.position = new Vector3(transform.position.x, transform.position.y, -10);
   }
 
-  public override void ApplyDamage(int damage) {
-    base.ApplyDamage(damage);
-    // hudHealthBar.SetHealth(health);
+  public override void SetHealth(int health) {
+    base.SetHealth(health);
+    GameManager.Instance.healthBar.SetHealth(health);
   }
 
   public void Spawn() {

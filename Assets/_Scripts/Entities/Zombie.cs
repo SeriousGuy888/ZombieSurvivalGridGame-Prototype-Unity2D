@@ -20,7 +20,7 @@ public class Zombie : BaseCreature {
   public override void FixedUpdate() {
     base.FixedUpdate();
 
-    if(gameObject != null)
+    if(gameObject != null && targetPlayer != null)
       agent.SetDestination(targetPlayer.transform.position);
   }
 }

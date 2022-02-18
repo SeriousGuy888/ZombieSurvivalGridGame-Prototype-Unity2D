@@ -11,6 +11,7 @@ public class TileSelection : MonoBehaviour {
   [SerializeField] private TileBase hoverTileAsset;
   private Vector3 prevMousePos;
   private Vector2Int hoveredTilePos;
+  private bool isHovered; // is the cursor directly over the tilemap's boxcollider right now
 
   [SerializeField] private Zombie zombie;
 
@@ -25,7 +26,9 @@ public class TileSelection : MonoBehaviour {
 
     if(hoveredTilePos != null)
       SetOverlayTile(hoveredTilePos, null);
-    
+    if(!isHovered)
+      return;
+
     prevMousePos = Input.mousePosition;
     hoveredTilePos = GetHoveredCellPos();
     SetOverlayTile(hoveredTilePos, hoverTileAsset);
@@ -34,19 +37,18 @@ public class TileSelection : MonoBehaviour {
 
 
   public void Click() {
+    if(!isHovered)
+      return;
     GameTile clickedTile = MapManager.Instance.GetTile(GetHoveredCellPos());
+
     Instantiate(zombie,
       MapManager.Instance.terrainTilemap.CellToWorld((Vector3Int) clickedTile.coords),
       Quaternion.identity);
   }
 
-  // private void SelectTile(GameTile tile) {
-  //   selectedTile = tile;
-  // }
-
-  // private void DeselectTile() {
-  //   selectedTile = null;
-  // }
+  public void SetHovered(bool isHovered) {
+    this.isHovered = isHovered;
+  }
 
 
   private void SetOverlayTile(Vector2Int position, TileBase overlayTileType) {

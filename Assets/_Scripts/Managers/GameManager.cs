@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 
   public GameState gameState;
   public Player player;
+  public HealthBar healthBar;
 
   private void Start() {
     UpdateGameState(GameState.BuildMap);
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour {
         MapManager.Instance.BuildMap();
         break;
       case GameState.Play:
+        healthBar.SetMaxHealth(player.maxHealth);
         break;
     }
   }

@@ -17,8 +17,11 @@ public class BaseEntity : MonoBehaviour {
       Die();
   }
 
+  public virtual void SetHealth(int health) {
+    this.health = health;
+  }
   public virtual void ApplyDamage(int damage) {
-    health -= damage;
+    SetHealth(health - damage);
     // healthBar.SetHealth(health);
   }
 
