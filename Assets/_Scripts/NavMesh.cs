@@ -9,4 +9,8 @@ public class NavMesh : MonoBehaviour {
   public void Bake() {
     Surface2D.BuildNavMeshAsync();
   }
+
+  public void Rebake() {
+    Surface2D.UpdateNavMesh(Surface2D.navMeshData);
+  }
 }

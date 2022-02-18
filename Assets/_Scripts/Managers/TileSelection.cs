@@ -40,10 +40,11 @@ public class TileSelection : MonoBehaviour {
     if(!isHovered)
       return;
     GameTile clickedTile = MapManager.Instance.GetTile(GetHoveredCellPos());
+    MapManager.Instance.SetStructureAt(clickedTile.coords, StructureType.Crate);
 
-    Instantiate(zombie,
-      MapManager.Instance.terrainTilemap.CellToWorld((Vector3Int) clickedTile.coords),
-      Quaternion.identity);
+    // Instantiate(zombie,
+    //   MapManager.Instance.terrainTilemap.CellToWorld((Vector3Int) clickedTile.coords),
+    //   Quaternion.identity);
   }
 
   public void SetHovered(bool isHovered) {

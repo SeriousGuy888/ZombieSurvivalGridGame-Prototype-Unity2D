@@ -13,7 +13,7 @@ public class MapManager : MonoBehaviour {
   public Dictionary<Vector2Int, GameTile> gameTiles;
   [SerializeField] private NavMesh navMesh;
   [SerializeField] private Tile barrierTile, grassTile, waterTile;
-  [SerializeField] private Tile treeTile;
+  [SerializeField] private Tile treeTile, crateTile;
 
   public void BuildMap() {
     Texture2D terrainTex = PerlinNoise.Instance.GenerateTexture(mapSize, 3);
@@ -69,6 +69,9 @@ public class MapManager : MonoBehaviour {
         case StructureType.Tree:
           structureTileType = treeTile;
           break;
+        case StructureType.Crate:
+          structureTileType = crateTile;
+          break;
       }
 
       terrainTilemap.SetTile(coords3D, terrainTileType);
@@ -82,6 +85,12 @@ public class MapManager : MonoBehaviour {
       return gameTile;
     else return null;
   }
+
+  public void SetStructureAt(Vector2Int coords, StructureType structureType) {
+    gameTiles[coords].structureType = structureType;
+    RenderMap();
+    navMesh.Rebake();
+  }
 }
 
 public enum TerrainType {
@@ -93,4 +102,5 @@ public enum TerrainType {
 public enum StructureType {
   None,
   Tree,
+  Crate,
 }
