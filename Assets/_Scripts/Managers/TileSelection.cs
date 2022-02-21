@@ -6,12 +6,12 @@ using UnityEngine.Tilemaps;
 public class TileSelection : MonoBehaviour {
   public static TileSelection Instance;
 
+  public bool isHovering; // is the cursor directly over the tilemap's boxcollider right now
   [SerializeField] private Camera cam;
   [SerializeField] private Tilemap selectionOverlayTilemap;
   [SerializeField] private TileBase hoverTileAsset;
   private Vector3 prevMousePos;
   private Vector2Int hoveredTilePos;
-  private bool isHovered; // is the cursor directly over the tilemap's boxcollider right now
 
   [SerializeField] private Zombie zombie;
 
@@ -26,7 +26,7 @@ public class TileSelection : MonoBehaviour {
 
     if(hoveredTilePos != null)
       SetOverlayTile(hoveredTilePos, null);
-    if(!isHovered)
+    if(!isHovering)
       return;
 
     prevMousePos = Input.mousePosition;
@@ -37,18 +37,20 @@ public class TileSelection : MonoBehaviour {
 
 
   public void Click() {
-    if(!isHovered)
+    if(!isHovering)
       return;
     GameTile clickedTile = MapManager.Instance.GetTile(GetHoveredCellPos());
-    MapManager.Instance.SetStructureAt(clickedTile.coords, StructureType.Crate);
+
+    if(clickedTile.structure.type == StructureType.None) {
+      MapManager.Instance.SetStructureAt(clickedTile.coords, StructureType.Crate);
+    } else {
+      clickedTile.structure.ApplyDamage(10);
+    }
+
 
     // Instantiate(zombie,
     //   MapManager.Instance.terrainTilemap.CellToWorld((Vector3Int) clickedTile.coords),
     //   Quaternion.identity);
-  }
-
-  public void SetHovered(bool isHovered) {
-    this.isHovered = isHovered;
   }
 
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -14,6 +15,7 @@ public class MapManager : MonoBehaviour {
   [SerializeField] private NavMesh navMesh;
   [SerializeField] private Tile barrierTile, grassTile, waterTile;
   [SerializeField] private Tile treeTile, crateTile;
+  private bool mapRerenderQueued = false;
 
   public void BuildMap() {
     Texture2D terrainTex = PerlinNoise.Instance.GenerateTexture(mapSize, 3);
@@ -34,19 +36,21 @@ public class MapManager : MonoBehaviour {
         GameTile newGameTile = new GameTile((Vector2Int) coords, terrainType);
 
         if(treePixelValue > 0.67 && terrainType == TerrainType.Grass)
-          newGameTile.structureType = StructureType.Tree;
+          newGameTile.structure.SetType(StructureType.Tree);
 
         gameTiles.Add((Vector2Int) coords, newGameTile);
       }
     }
 
-    RenderMap();
+    QueueMapRerender();
     navMesh.Bake();
     GameManager.Instance.player.Spawn();
     GameManager.Instance.UpdateGameState(GameState.Play);
+
+    StartCoroutine("RerenderMap");
   }
 
-  public void RenderMap() {
+  private void RenderMap() {
     foreach(var kvp in gameTiles) {
       GameTile gameTile = kvp.Value;
       Vector3Int coords3D = (Vector3Int) gameTile.coords;
@@ -65,7 +69,7 @@ public class MapManager : MonoBehaviour {
       }
 
       Tile structureTileType = null;
-      switch(gameTile.structureType) {
+      switch(gameTile.structure.type) {
         case StructureType.Tree:
           structureTileType = treeTile;
           break;
@@ -75,9 +79,10 @@ public class MapManager : MonoBehaviour {
       }
 
       terrainTilemap.SetTile(coords3D, terrainTileType);
-      if(structureTileType != null)
-        structureTilemap.SetTile(coords3D, structureTileType);
+      structureTilemap.SetTile(coords3D, structureTileType);
     }
+
+    navMesh.Rebake();
   }
 
   public GameTile GetTile(Vector2Int coords) {
@@ -87,9 +92,22 @@ public class MapManager : MonoBehaviour {
   }
 
   public void SetStructureAt(Vector2Int coords, StructureType structureType) {
-    gameTiles[coords].structureType = structureType;
-    RenderMap();
-    navMesh.Rebake();
+    gameTiles[coords].structure.SetType(structureType);
+    QueueMapRerender();
+  }
+
+  public void QueueMapRerender() {
+    mapRerenderQueued = true;
+  }
+
+  IEnumerator RerenderMap() {
+    for(;;) {
+      if(mapRerenderQueued) {
+        RenderMap();
+        mapRerenderQueued = false;
+      }
+      yield return new WaitForSeconds(0.1f);
+    }
   }
 }
 

@@ -11,6 +11,7 @@ public class NavMesh : MonoBehaviour {
   }
 
   public void Rebake() {
-    Surface2D.UpdateNavMesh(Surface2D.navMeshData);
+    if(Surface2D.navMeshData != null)
+      Surface2D.UpdateNavMesh(Surface2D.navMeshData);
   }
 }

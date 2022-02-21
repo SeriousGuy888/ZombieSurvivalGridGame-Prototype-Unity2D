@@ -485,6 +485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b57314bd6496b1d4d8418761fd37b2dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isHovering: 0
   cam: {fileID: 519420031}
   selectionOverlayTilemap: {fileID: 679216648}
   hoverTileAsset: {fileID: 11400000, guid: 96f18cb64ac3ad243bb854f8355210af, type: 2}
@@ -1105,7 +1106,7 @@ GameObject:
   - component: {fileID: 1662984283}
   - component: {fileID: 1662984285}
   - component: {fileID: 1662984286}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: StructureTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -5,11 +5,12 @@ using UnityEngine;
 public class GameTile {
   public Vector2Int coords;
   public TerrainType terrainType;
-  public StructureType structureType;
+  public GameTileStructure structure;
 
   public GameTile(Vector2Int coords, TerrainType terrainType) {
     this.coords = coords;
     this.terrainType = terrainType;
+    this.structure = new GameTileStructure(this, null);
   }
 
   public bool GetWalkable() => terrainType != TerrainType.Water;
