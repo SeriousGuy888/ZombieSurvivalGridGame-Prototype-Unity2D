@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseCreature : BaseEntity {
+  public Rigidbody2D rb;
+  public BoxCollider2D boxCollider;
   public Vector2 movement;
   public float moveSpeed = 5;
 

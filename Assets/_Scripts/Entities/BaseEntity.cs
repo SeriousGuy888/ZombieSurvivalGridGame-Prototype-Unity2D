@@ -1,8 +1,6 @@
 using UnityEngine;
 
 public class BaseEntity : MonoBehaviour {
-  public Rigidbody2D rb;
-  public BoxCollider2D boxCollider;
   // public HealthBar healthBar;
   public int maxHealth = 100;
   public int health;
