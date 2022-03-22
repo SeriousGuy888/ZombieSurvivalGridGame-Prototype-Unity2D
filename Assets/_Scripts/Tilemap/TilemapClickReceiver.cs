@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TilemapClickReceiver : MonoBehaviour {
   [SerializeField] private BoxCollider2D boxCollider;
@@ -14,14 +15,13 @@ public class TilemapClickReceiver : MonoBehaviour {
 
   // tests if the player is hovering over the tilemap but not an entity
   private void Update() {
-    RaycastHit2D hit = Physics2D.GetRayIntersection(
-      Camera.main.ScreenPointToRay(Input.mousePosition),
-      distance: Mathf.Infinity,
-      layerMask: LayerMask.GetMask(new string[] { "UI", "Entity", "Player" }));
+    // get object that the mouse is over
+    RaycastHit2D hit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition));
 
-    TileSelection.Instance.isHovering = (
+    // set the tilemap's isHovering bool, based on if the mouse is not over the ui
+    TileSelection.Instance.isHovering =
       hit.collider != null &&
-      hit.collider.gameObject.layer == LayerMask.NameToLayer("UI"));
+      !EventSystem.current.IsPointerOverGameObject();
   }
 
   private void OnMouseDown() => TileSelection.Instance.Click();
