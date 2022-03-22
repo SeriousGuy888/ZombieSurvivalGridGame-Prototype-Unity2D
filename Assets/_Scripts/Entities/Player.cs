@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Player : BaseCreature {
   [SerializeField] private Transform cam;
-  public InventorySystem inventorySystem;
 
   public override void Start() {
     base.Start();

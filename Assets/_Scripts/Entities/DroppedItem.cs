@@ -6,7 +6,7 @@ public class DroppedItem : BaseEntity {
   public InventoryItemData itemData;
 
   public void PickUp() {
-    GameManager.Instance.player.inventorySystem.Add(itemData);
+    InventorySystem.Instance.Add(itemData);
     Destroy(gameObject);
   }
 }
