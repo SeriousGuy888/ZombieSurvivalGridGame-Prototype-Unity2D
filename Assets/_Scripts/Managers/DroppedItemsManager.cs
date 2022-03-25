@@ -22,6 +22,6 @@ public class DroppedItemsManager : MonoBehaviour {
 
   [Serializable]
   public class ItemRegistry {
-    public InventoryItemData apple;
+    public InventoryItemData apple, log;
   }
 }

@@ -34,7 +34,7 @@ public class GameTileStructure {
       if(type == StructureType.Tree) {
         DroppedItemsManager.Instance.SpawnDroppedItem(
           parentTile.coords + new Vector2(0.5f, 0.5f),
-          DroppedItemsManager.Instance.itemRegistry.apple);
+          DroppedItemsManager.Instance.itemRegistry.log);
       }
 
       SetType(StructureType.None);
