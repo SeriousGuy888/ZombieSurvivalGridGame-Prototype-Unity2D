@@ -31,6 +31,12 @@ public class GameTileStructure {
     Debug.Log($"Set health of structure at {parentTile.coords} - new health: {health}");
 
     if(health <= 0) {
+      if(type == StructureType.Tree) {
+        DroppedItemsManager.Instance.SpawnDroppedItem(
+          parentTile.coords + new Vector2(0.5f, 0.5f),
+          DroppedItemsManager.Instance.itemRegistry.apple);
+      }
+
       SetType(StructureType.None);
       MapManager.Instance.QueueMapRerender();
     }

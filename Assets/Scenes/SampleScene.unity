@@ -1406,8 +1406,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1686436318}
   - component: {fileID: 1686436319}
+  - component: {fileID: 1686436320}
   m_Layer: 0
-  m_Name: InventorySystem
+  m_Name: DroppedItemsManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1440,6 +1441,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da457fc0655d93479f6f95e5ed284d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1686436320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686436317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a58647f74434c4dbc96fdb8ef68383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemRegistry:
+    apple: {fileID: 11400000, guid: 4d15104079efeca46a213a045cd32360, type: 2}
+  droppedItemPrefab: {fileID: 7161875691578464975, guid: 7affd57058e46474da604a842844642f, type: 3}
 --- !u!1 &1832006041
 GameObject:
   m_ObjectHideFlags: 0
