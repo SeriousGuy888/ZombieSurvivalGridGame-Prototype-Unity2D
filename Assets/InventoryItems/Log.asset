@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0bc233fdc179c49a670fdf594fc89e, type: 3}
   m_Name: Log
   m_EditorClassIdentifier: 
-  id: 
-  displayName: 
-  icon: {fileID: 0}
-  prefab: {fileID: 0}
+  id: Log
+  displayName: Log
+  icon: {fileID: 21300000, guid: 0bbb7ed0a3909cc4ca74bf21ad159811, type: 3}

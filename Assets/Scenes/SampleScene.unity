@@ -543,11 +543,6 @@ MonoBehaviour:
   waterTile: {fileID: 11400000, guid: badd22b103b396746b83a0520a9a6748, type: 2}
   treeTile: {fileID: 11400000, guid: 1915a7cf7d8563f4a91d8bd45f214163, type: 2}
   crateTile: {fileID: 11400000, guid: ccf0b982b41683f41a9fe12066ad0972, type: 2}
---- !u!1 &492781707 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 698919642661603588, guid: 05fb8a1ebab43394a867c3102c090335, type: 3}
-  m_PrefabInstance: {fileID: 2078370538}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1224,22 +1219,10 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -6478869956089912066, guid: 05fb8a1ebab43394a867c3102c090335, type: 3}
   m_PrefabInstance: {fileID: 2078370538}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 492781707}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4886ff9e049ef7d40be91cfdb007b3ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1661098745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 492781707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1da457fc0655d93479f6f95e5ed284d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1662984281
@@ -1408,7 +1391,7 @@ GameObject:
   - component: {fileID: 1686436319}
   - component: {fileID: 1686436320}
   m_Layer: 0
-  m_Name: DroppedItemsManager
+  m_Name: InventoryManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1441,6 +1424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da457fc0655d93479f6f95e5ed284d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxInventorySize: 8
 --- !u!114 &1686436320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1455,6 +1439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemRegistry:
     apple: {fileID: 11400000, guid: 4d15104079efeca46a213a045cd32360, type: 2}
+    log: {fileID: 11400000, guid: 076eb624ae01b4a448d97a9947bd76ea, type: 2}
   droppedItemPrefab: {fileID: 7161875691578464975, guid: 7affd57058e46474da604a842844642f, type: 3}
 --- !u!1 &1832006041
 GameObject:
@@ -1760,7 +1745,7 @@ PrefabInstance:
     - target: {fileID: -6478869956089912066, guid: 05fb8a1ebab43394a867c3102c090335, type: 3}
       propertyPath: inventorySystem
       value: 
-      objectReference: {fileID: 1661098745}
+      objectReference: {fileID: 0}
     - target: {fileID: 698919642661603584, guid: 05fb8a1ebab43394a867c3102c090335, type: 3}
       propertyPath: m_RootOrder
       value: 6

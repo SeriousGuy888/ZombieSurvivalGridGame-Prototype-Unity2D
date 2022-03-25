@@ -11,6 +11,8 @@ public class ItemSlot : MonoBehaviour {
   [SerializeField] private TextMeshProUGUI amountLabel;
   [SerializeField] private GameObject stackObj;
 
+  public int slotIndex;
+
   public void Set(InventoryItem item) {
     icon.sprite = item.data.icon; // set icon to item icon
     label.text = item.data.displayName; // set label to item name
