@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
 public class TileSelection : MonoBehaviour {
@@ -36,21 +37,30 @@ public class TileSelection : MonoBehaviour {
 
 
 
-  public void Click() {
+  public void Click(PointerEventData.InputButton button) {
     if(!isHovering)
       return;
     GameTile clickedTile = MapManager.Instance.GetTile(GetHoveredCellPos());
 
-    if(clickedTile.structure.type == StructureType.None) {
-      MapManager.Instance.SetStructureAt(clickedTile.coords, StructureType.Crate);
-    } else {
-      clickedTile.structure.ApplyDamage(10);
+    switch(button) {
+
+      case PointerEventData.InputButton.Left:
+        if(clickedTile.structure.type == StructureType.None) {
+          MapManager.Instance.SetStructureAt(clickedTile.coords, StructureType.Crate);
+        } else {
+          clickedTile.structure.ApplyDamage(10);
+        }
+        break;
+      
+
+      case PointerEventData.InputButton.Right:
+        Instantiate(zombie,
+          MapManager.Instance.terrainTilemap.CellToWorld((Vector3Int) clickedTile.coords),
+          Quaternion.identity);
+        break;
+      
     }
 
-
-    // Instantiate(zombie,
-    //   MapManager.Instance.terrainTilemap.CellToWorld((Vector3Int) clickedTile.coords),
-    //   Quaternion.identity);
   }
 
 

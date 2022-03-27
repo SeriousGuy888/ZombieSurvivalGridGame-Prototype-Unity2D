@@ -23,4 +23,9 @@ public class Zombie : BaseCreature {
     if(gameObject != null && targetPlayer != null)
       agent.SetDestination(targetPlayer.transform.position);
   }
+
+  private void OnMouseDown() {
+    ApplyDamage(10);
+    Debug.Log("ow! new health: " + health);
+  }
 }

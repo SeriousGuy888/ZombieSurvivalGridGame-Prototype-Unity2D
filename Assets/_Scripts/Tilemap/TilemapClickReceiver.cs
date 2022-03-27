@@ -16,13 +16,21 @@ public class TilemapClickReceiver : MonoBehaviour {
   // tests if the player is hovering over the tilemap but not an entity
   private void Update() {
     // get object that the mouse is over
-    RaycastHit2D hit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition));
+    RaycastHit2D hit = Physics2D.GetRayIntersection(
+      ray: Camera.main.ScreenPointToRay(Input.mousePosition),
+      distance: Mathf.Infinity,
+      layerMask: LayerMask.GetMask(new string[] { "HoverOverlay", "Entity", "Player" })
+    );
 
     // set the tilemap's isHovering bool, based on if the mouse is not over the ui
     TileSelection.Instance.isHovering =
       hit.collider != null &&
+      hit.collider.gameObject.layer == LayerMask.NameToLayer("HoverOverlay") &&
       !EventSystem.current.IsPointerOverGameObject();
+    
+    if(Input.GetMouseButtonDown(0))
+      TileSelection.Instance.Click(PointerEventData.InputButton.Left);
+    if(Input.GetMouseButtonDown(1))
+      TileSelection.Instance.Click(PointerEventData.InputButton.Right);
   }
-
-  private void OnMouseDown() => TileSelection.Instance.Click();
 }

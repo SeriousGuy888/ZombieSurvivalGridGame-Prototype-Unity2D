@@ -687,8 +687,8 @@ GameObject:
   - component: {fileID: 679216649}
   - component: {fileID: 679216651}
   - component: {fileID: 679216653}
-  m_Layer: 5
-  m_Name: SelectionOverlayTilemap
+  m_Layer: 8
+  m_Name: HoverOverlayTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
