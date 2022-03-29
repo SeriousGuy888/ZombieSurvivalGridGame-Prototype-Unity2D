@@ -20,10 +20,11 @@ public class InventoryUI : MonoBehaviour {
       GameObject obj = Instantiate(_slotPrefab);
       obj.transform.SetParent(transform);
       obj.name = "Inventory Slot " + i;
-      obj.SetActive(false);
 
       var slot = obj.GetComponent<ItemSlot>();
       slot.slotIndex = i;
+      slot.Set(null);
+
       itemSlots.Add(slot);
     }
   }
@@ -31,13 +32,12 @@ public class InventoryUI : MonoBehaviour {
   private void OnUpdateInventory() {
     foreach(var slot in itemSlots) {
       if(slot.slotIndex >= InventorySystem.Instance.inventory.Count) {
-        slot.gameObject.SetActive(false);
+        slot.Set(null);
         continue;
       }
       
       InventoryItem item = InventorySystem.Instance.inventory[slot.slotIndex];
       slot.Set(item);
-      slot.gameObject.SetActive(true);
     }
   }
 }

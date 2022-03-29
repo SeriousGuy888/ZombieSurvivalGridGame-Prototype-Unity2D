@@ -7,6 +7,7 @@ public class InventorySystem : MonoBehaviour {
   private Dictionary<InventoryItemData, InventoryItem> itemDictionary;
   public List<InventoryItem> inventory { get; private set; }
   public int maxInventorySize = 8;
+  public int selectedIndex = -1;
 
   public delegate void InventoryUpdate();
   public event InventoryUpdate OnInventoryChangedEvent;
@@ -17,10 +18,29 @@ public class InventorySystem : MonoBehaviour {
     inventory = new List<InventoryItem>();
   }
 
+
+
   public InventoryItem Get(InventoryItemData itemData) {
     if(itemDictionary.TryGetValue(itemData, out InventoryItem item))
       return item;
     return null;
+  }
+  public InventoryItem Get(int slotIndex) {
+    if(slotIndex >= inventory.Count)
+      return null;
+    return inventory[slotIndex];
+  }
+
+
+
+
+  public void SelectSlot(int selectIndex) {
+    if(selectIndex > inventory.Count - 1)
+      return;
+    selectedIndex = selectIndex;
+
+    if(OnInventoryChangedEvent != null)
+      OnInventoryChangedEvent();
   }
 
   // Adds an item to the inventory.
