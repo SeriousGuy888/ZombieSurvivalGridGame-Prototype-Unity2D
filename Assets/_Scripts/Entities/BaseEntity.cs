@@ -1,13 +1,13 @@
 using UnityEngine;
 
 public class BaseEntity : MonoBehaviour {
-  // public HealthBar healthBar;
   public int maxHealth = 100;
   public int health;
 
+  public Rigidbody2D rb;
+
   public virtual void Start() {
     health = maxHealth;
-    // healthBar.SetMaxHealth(maxHealth);
   }
 
   public virtual void FixedUpdate() {
@@ -20,16 +20,7 @@ public class BaseEntity : MonoBehaviour {
   }
   public virtual void ApplyDamage(int damage) {
     SetHealth(health - damage);
-    // healthBar.SetHealth(health);
   }
-
-  // private void OnMouseEnter() {
-  //   healthBar.gameObject.SetActive(true);
-  // }
-
-  // private void OnMouseExit() {
-  //   healthBar.gameObject.SetActive(false);
-  // }
   
   private void OnMouseUp() {
     ApplyDamage(10);
@@ -39,4 +30,6 @@ public class BaseEntity : MonoBehaviour {
     Debug.Log(gameObject.name + ": oeuf");
     Destroy(gameObject);
   }
+
+  public void SetVelocity(Vector2 vec) => rb.velocity = vec;
 }

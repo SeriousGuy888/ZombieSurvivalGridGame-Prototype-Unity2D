@@ -1441,7 +1441,7 @@ MonoBehaviour:
   itemRegistry:
     apple: {fileID: 11400000, guid: 4d15104079efeca46a213a045cd32360, type: 2}
     log: {fileID: 11400000, guid: 076eb624ae01b4a448d97a9947bd76ea, type: 2}
-  droppedItemPrefab: {fileID: 7161875691578464975, guid: 7affd57058e46474da604a842844642f, type: 3}
+  droppedItemPrefab: {fileID: -8266849346813013197, guid: 688537394970b9448b48f000fa6add36, type: 3}
 --- !u!1 &1832006041
 GameObject:
   m_ObjectHideFlags: 0

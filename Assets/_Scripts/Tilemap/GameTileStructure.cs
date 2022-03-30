@@ -19,7 +19,7 @@ public class GameTileStructure {
     if(structureType == StructureType.None)
       SetMaxHealth(0);
     else
-      SetMaxHealth(50); // temp
+      SetMaxHealth(10); // temp
   }
 
   private void SetMaxHealth(int maxHealth) {
@@ -31,16 +31,16 @@ public class GameTileStructure {
     Debug.Log($"Set health of structure at {parentTile.coords} - new health: {health}");
 
     if(health <= 0) {
-      if(type == StructureType.Tree) {
-        DroppedItemsManager.Instance.SpawnDroppedItem(
-          parentTile.coords + new Vector2(0.5f, 0.5f),
-          DroppedItemsManager.Instance.itemRegistry.log);
-        DroppedItemsManager.Instance.SpawnDroppedItem(
-          parentTile.coords + new Vector2(0.5f, 0.5f),
-          DroppedItemsManager.Instance.itemRegistry.apple);
+      var structureType = type;
+      SetType(StructureType.None);
+
+      if(structureType == StructureType.Tree) {
+        DroppedItemsManager.Instance.SpawnItemWithRandVel(
+          parentTile.coords, DroppedItemsManager.Instance.itemRegistry.log);
+        DroppedItemsManager.Instance.SpawnItemWithRandVel(
+          parentTile.coords, DroppedItemsManager.Instance.itemRegistry.apple);
       }
 
-      SetType(StructureType.None);
       MapManager.Instance.QueueMapRerender();
     }
   }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,15 +11,23 @@ public class DroppedItemsManager : MonoBehaviour {
   public ItemRegistry itemRegistry;
   [SerializeField] private DroppedItem droppedItemPrefab;
 
-  public void SpawnDroppedItem(Vector2 position, InventoryItemData itemData) {
+  public DroppedItem SpawnItem(Vector2 position, InventoryItemData itemData) {
     DroppedItem droppedItem = Instantiate(droppedItemPrefab, position, Quaternion.identity);
     droppedItem.itemData = itemData;
     droppedItem.name = itemData.displayName;
     droppedItem.GetComponent<SpriteRenderer>().sprite = itemData.icon;
+    return droppedItem;
+  }
+
+  public DroppedItem SpawnItemWithRandVel(Vector2 position, InventoryItemData itemData) {
+    Vector2 randVel = Random.insideUnitCircle;
+    var droppedItem = SpawnItem(position + new Vector2(0.5f, 0.5f), itemData);
+    droppedItem.SetVelocity(randVel);
+    return droppedItem;
   }
 
 
-  [Serializable]
+  [System.Serializable]
   public class ItemRegistry {
     public InventoryItemData apple, log;
   }
