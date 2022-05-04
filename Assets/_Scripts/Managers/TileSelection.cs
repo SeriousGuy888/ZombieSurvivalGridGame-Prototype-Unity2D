@@ -47,6 +47,9 @@ public class TileSelection : MonoBehaviour {
       case PointerEventData.InputButton.Left:
         if(clickedTile.structure.type == StructureType.None) {
           MapManager.Instance.SetStructureAt(clickedTile.coords, StructureType.Crate);
+
+          InventoryItemData costItemData = DroppedItemsManager.Instance.itemRegistry.log;
+          InventorySystem.Instance.Remove(costItemData);
         } else {
           clickedTile.structure.ApplyDamage(10);
         }
